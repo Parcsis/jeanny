@@ -4,7 +4,7 @@ require 'lib/jeanny'
 
 include Jeanny::Sugar
 
-app_path = '/WebServers/home/frontlawgui.localhost/www/';
+app_path = '/apps/flg/';
 app_path_tpl = app_path + 'tpl/';
 app_path_js = app_path + 'static/js/';
 
