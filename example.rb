@@ -26,7 +26,7 @@ template_dirs = [
 ]
 
 start_match = /^(\/|[a-zA-Z]\:\/)/
-to_tmp = '\1tmp/'
+to_tmp = '\1tmp/jeanny_processed/'
 
 key_words_regexp = [/^(first|last|button|input|object|select|textarea|number|selected|value|border|hover|label|title|center|right|toggle|clear|submit|active|search|disabled|enabled|loader)/]
 
