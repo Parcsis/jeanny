@@ -39,7 +39,7 @@ to_tmp = '\1tmp/jeanny_processed/\2/'
 
 to_processed = app_path + 'cache/processed_tpl/'
 
-key_words_regexp = [/^(first|last|button|input|object|select|textarea|number|selected|value|border|hover|label|title|center|right|toggle|clear|submit|active|search|disabled|enabled|loader)/]
+key_words_regexp = [/^(first|last|button|input|object|select|textarea|number|selected|value|border|hover|label|title|center|right|toggle|clear|submit|active|search|disabled|enabled|loader|section)/]
 
 analyze(css_dirs, :compare_with => 'css.yaml', :excludes => key_words_regexp) and save 'css.yaml'
 
