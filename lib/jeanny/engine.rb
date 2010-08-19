@@ -80,9 +80,7 @@ module Jeanny
             
             fail "Тип блока не понятный" unless [:js, :css, :html, :tt2, :plain, :tpl].include? type
             fail "nil Ololo" if data.nil?
-			
-			dieasdasda
-			           
+					           
             code = case type
                 when :js then JSCode
                 when :css then CSSCode
