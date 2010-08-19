@@ -2,6 +2,8 @@
 
 require 'lib/jeanny'
 
+require 'pp'
+
 include Jeanny::Sugar
 
 if RUBY_PLATFORM == 'linux'

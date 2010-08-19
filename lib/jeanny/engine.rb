@@ -80,7 +80,9 @@ module Jeanny
             
             fail "Тип блока не понятный" unless [:js, :css, :html, :tt2, :plain, :tpl].include? type
             fail "nil Ololo" if data.nil?
-            
+			
+			dieasdasda
+			           
             code = case type
                 when :js then JSCode
                 when :css then CSSCode
@@ -242,7 +244,7 @@ module Jeanny
                 
                 next unless value.length > 4
                 meat = value.dup
-                
+				
                 classes.each do |full_class, short_class|
                     while pos = meat =~ /([^#a-z0-9\-_\/]|^)#{full_class}(?=[^a-z0-9\-_\.\/]|$)/i
                        if $1.nil? or $1.empty?
@@ -258,7 +260,7 @@ module Jeanny
                 end
 
             end
-
+			
             data.each do |string|		
                 # ruby regexp string substitution (regexp-fix), if string has symbol \ it will be used as escape symbol, so replace \ with \\ in string for using in regexp
                 # read http://redmine.ruby-lang.org/issues/show/1251 for more info.
@@ -268,7 +270,7 @@ module Jeanny
 
                 @code.gsub! string.first, string.last
             end
-            
+			            
             @code
             
         end
@@ -486,7 +488,7 @@ module Jeanny
 	class TplCode < Code
         
         def replace classes
-            
+		           
             # Заменяем классы во встроенных стилях
             @code.gsub!(/<style[^>]*?>(.*?)<\s*\/\s*style\s*>/mi) do |style|
                 style.gsub($1, CSSCode.new($1).replace(classes))
@@ -496,21 +498,25 @@ module Jeanny
             @code.gsub!(/<script[^>]*?>(.*?)<\s*\/\s*script\s*>/mi) do |script|
                 script.gsub($1, JSCode.new($1).replace(classes))
             end
-            
+			
+			@code.gsub!(/onclick\s*=\s*('|")(.*?)\1/) do |script|
+                script.gsub($2, JSCode.new($2).replace(classes))
+            end
+					           
             # Находим аттрибуты с именем "class"
             # TODO: Надо находить не просто "class=blablabl", а искать
             #       именно теги с аттрибутом "class"
             @code.gsub!(/class\s*=\s*('|")(.*?)\1/) do |match|            
                 # берем то что в кавычках и разбиваем по пробелам
 				class_name_html = $2
-				
-                matches = class_name_html.split(/[\s\{\}]/)
+								
+                matches = class_name_html.split(/[\s\{\}\=\,\']/)
                 
                 # проходимся по получившемуся массиву
                 matches.map! do |class_name|                    					
                     # удаляем проблелы по бокам
                     class_name = class_name.strip
-                    
+					                   
                     # и если в нашем списке замены есть такой класс заменяем на новое значение
                     if classes.has_key? class_name					
                         class_name_html.gsub!(/([^a-zA-Z\-\_]|^)#{class_name}(?![a-zA-Z\-\_])/, '\\1' + classes[class_name])
