@@ -16,7 +16,9 @@ app_path_tpl = app_path + 'tpl/';
 app_path_js = app_path + 'static/js/';
 
 css_dirs = [
-	app_path + 'static/css/*.css'
+	app_path + 'static/css/*.css',
+	app_path + 'static/css/ui/*.css',
+	app_path + 'static/css/blocks/*.css',
 ]
 
 js_dirs = [
